@@ -9,12 +9,30 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "react": "^18",
-    "react-dom": "^18",
-    "next": "14.2.3"
+    "@emotion/cache": "^11.11.0",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@hookform/resolvers": "^3.4.2",
+    "@mui/icons-material": "^5.15.18",
+    "@mui/lab": "^5.0.0-alpha.170",
+    "@mui/material": "^5.15.18",
+    "@mui/material-nextjs": "^5.15.11",
+    "@mui/x-charts": "^7.5.1",
+    "@mui/x-date-pickers": "^7.5.1",
+    "babel-plugin-react-compiler": "^0.0.0-experimental-592953e-20240517",
+    "date-fns": "^3.6.0",
+    "dayjs": "^1.11.11",
+    "eslint-plugin-react-compiler": "^0.0.0-experimental-c8b3f72-20240517",
+    "lottie-react": "^2.4.0",
+    "next": "^15.0.0-rc.0",
+    "pocketbase": "^0.21.2",
+    "react": "^19.0.0-rc-935180c7e0-20240524",
+    "react-dom": "^19.0.0-rc-935180c7e0-20240524",
+    "react-hook-form": "^7.51.5",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
-    "eslint": "^8",
-    "eslint-config-next": "14.2.3"
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.3"
   }
 }
