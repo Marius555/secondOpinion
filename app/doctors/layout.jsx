@@ -1,11 +1,10 @@
-import "../../../../globals.css"
+import "../globals.css"
 import { ThemeProvider } from '@mui/material/styles';
-import theme from "@/app/theme";
+import theme from "../theme";
 import CssBaseline from '@mui/material/CssBaseline';
 import NavBar from "@/Components/NavBar/NavBar";
 import { Box } from "@mui/material";
 import SideBar from "@/Components/NavBar/sideBar";
-import PocketBase from 'pocketbase';
 import { cookies } from 'next/headers';
 import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
@@ -37,10 +36,10 @@ export default function RootLayout(props) {
                 <CssBaseline />
 
                 <Grid container spacing={0}>
-                    <Grid xs={false} sm={4} md={3} lg={2}>
+                    <Grid xs={false} sm={ state && 4} md={state && 3} lg={state && 2}>
                         <SideBar state={state} type={typeVar} id={id}/>
                     </Grid>
-                    <Grid xs={12} sm={8} md={9} lg={10}>
+                    <Grid xs={12} sm={ state? 8: 12} md={state ? 9 : 12} lg={state ? 10 : 12}>
                         <NavBar />
                         {props.children}
                     </Grid>

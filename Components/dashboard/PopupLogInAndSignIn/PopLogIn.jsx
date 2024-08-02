@@ -12,7 +12,6 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { ThemeProvider } from '@mui/material/styles';
 import { useTheme } from '@emotion/react';
-import Paper from '@mui/material/Paper';
 import { useForm } from 'react-hook-form';
 import LoginResolver from '@/resolvers/LoginResolver';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -20,10 +19,13 @@ import LogInAction from '@/serverActions/LoginAction';
 import getCookie from '@/Components/getCookie';
 import { useState } from 'react';
 import FormHelperText from '@mui/material/FormHelperText';
-import DataBaseConnectionServer from '@/Components/DatabaseConnection/DataBaseConnectionServer';
+import PocketBase from 'pocketbase';
+import CloseIcon from '@mui/icons-material/Close';
+import DataBaseConnectionClient from '@/Components/DatabaseConnection/DataBaseConnection';
 
-export default function Login() {
-    const pb = DataBaseConnectionServer()
+
+export default function PopLogin({setOpen}) {
+    const pb = DataBaseConnectionClient()
 
     const theme = useTheme();
     const [err, setErr] = useState(null)
@@ -62,17 +64,19 @@ export default function Login() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs">
+            <Container component="main" maxWidth="xs" sx={{position: "relative"}}>
                 <CssBaseline />
-                <Paper elevation={2} sx={{padding: "20px"}}>
+                <Box sx={{padding: "20px"}}>
                     <Box
                         sx={{
                             
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
+                            
                         }}
                     >
+                        <CloseIcon sx={{position: "absolute", top: "0px", right: "5px", cursor: "pointer"}} onClick={() =>{setOpen(() => false)}}/>
                         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                             <LockOutlinedIcon />
                         </Avatar>
@@ -129,7 +133,7 @@ export default function Login() {
                             </Grid>
                         </Box>
                     </Box>
-                </Paper>
+                </Box>
             </Container>
         </ThemeProvider>
     );

@@ -26,11 +26,14 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import dayjs from 'dayjs';
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import PocketBase from 'pocketbase';
+import DataBaseConnectionServer from '@/Components/DatabaseConnection/DataBaseConnectionServer';
 
-const pb = new PocketBase('http://127.0.0.1:8090');
+
+
 
 
 const StepOneForm = ({ ActiveStep, setActiveStep, data, setData }) => {
+    const pb = DataBaseConnectionServer()
     // let defaultValues = {
     //     Name: "", LastName: "", PhoneNumber: "", Nationality: "", DateOfBirth: "", PictureObject: "", Gender: ""
     // }

@@ -1,9 +1,8 @@
 "use server"
-import PocketBase from 'pocketbase';
 import { cookies } from 'next/headers'
+import DataBaseConnectionServer from '@/Components/DatabaseConnection/DataBaseConnectionServer';
 
-
-const pb = new PocketBase('http://127.0.0.1:8090');
+const pb = DataBaseConnectionServer()
 
 
 const StepOneDoctorAction = async (values) => {
@@ -11,7 +10,6 @@ const StepOneDoctorAction = async (values) => {
     pb.authStore.loadFromCookie(`${pb_cookie.name}=${pb_cookie.value}`)
     values.append("UserId", pb.authStore.model.id)
     const val = Object.fromEntries(values)
-    console.log(val)
 
     if (pb.authStore.isValid) {
         try {

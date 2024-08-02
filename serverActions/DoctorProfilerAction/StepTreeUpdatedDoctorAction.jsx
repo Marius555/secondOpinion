@@ -1,8 +1,9 @@
 "use server"
-import PocketBase from 'pocketbase';
 import { cookies } from 'next/headers'
 import dayjs from 'dayjs';
-const pb = new PocketBase('http://127.0.0.1:8090');
+import DataBaseConnectionServer from '@/Components/DatabaseConnection/DataBaseConnectionServer';
+
+const pb = DataBaseConnectionServer()
 
 const StepTreeUpdatedDoctorAction = async(values) => {
     const pb_cookie = cookies().get("pb_auth")

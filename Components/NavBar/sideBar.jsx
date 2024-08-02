@@ -10,10 +10,11 @@ import Divider from '@mui/material/Divider';
 import HomeIcon from '@mui/icons-material/Home';
 import SettingsIcon from '@mui/icons-material/Settings';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import PocketBase from 'pocketbase';
+import DataBaseConnectionClient from '../DatabaseConnection/DataBaseConnection';
+
 
 export default function SideBar({state, id, type}) {
-  const pb = new PocketBase('http://127.0.0.1:8090');
+  const pb = DataBaseConnectionClient()
   const dashboardRedirect = `/user/${type}/dashboard/${id} || /`
 
 

@@ -1,8 +1,8 @@
 "use server"
-import PocketBase from 'pocketbase';
 import { cookies } from 'next/headers'
+import DataBaseConnectionServer from '@/Components/DatabaseConnection/DataBaseConnectionServer';
 
-const pb = new PocketBase('http://127.0.0.1:8090');
+const pb = DataBaseConnectionServer()
 
 
 const StepOneCheck = async () => {

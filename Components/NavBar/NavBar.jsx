@@ -3,16 +3,13 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import PocketBase from 'pocketbase';
 import { cookies } from 'next/headers';
 import LoginOrAvatar from './LoginOrAvatar';
 import MobileSideBar from './MobileSideBar';
-
+import DataBaseConnectionServer from '../DatabaseConnection/DataBaseConnectionServer';
 
 export default function NavBar() {
-  const pb = new PocketBase('http://127.0.0.1:8090');
+  const pb = DataBaseConnectionServer()
   let state = false
   let modelInfo = null
   let id = null

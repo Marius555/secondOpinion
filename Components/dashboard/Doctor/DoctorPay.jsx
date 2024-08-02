@@ -3,7 +3,6 @@ import { Box, Paper } from '@mui/material'
 import { LineChart } from '@mui/x-charts/LineChart';
 import { Typography } from '@mui/material';
 import dayjs, { Dayjs } from 'dayjs';
-import PocketBase from 'pocketbase';
 import { useEffect } from 'react';
 import React from 'react';
 import { useState } from 'react';
@@ -12,10 +11,12 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import theme from '@/app/theme';
 import "dayjs/locale/lt"
+import DataBaseConnectionClient from '@/Components/DatabaseConnection/DataBaseConnection';
 dayjs.locale("lt")
 
+
 const DoctorPay = () => {
-    const pb = new PocketBase('http://127.0.0.1:8090');
+    const pb = DataBaseConnectionClient();
     const [reData, SetReqData] = useState()
     const currentDate = dayjs().format("YYYY-MM-dd")
     const [dateRequest, SetDateRequest] = useState(dayjs().subtract(5, "days").format("YYYY-MM-D"))

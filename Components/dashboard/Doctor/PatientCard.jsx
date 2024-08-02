@@ -51,13 +51,10 @@ const PatientCard = () => {
                   { id: 2, value: 20 },
                 ],
                 paddingAngle: 5,
-                innerRadius: 50,
-                cornerRadius: 5,
+                innerRadius: 75,
+                cornerRadius: 0,
                 startAngle: -180,
                 endAngle: 180,
-
-
-
 
               },
             ]}

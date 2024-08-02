@@ -4,8 +4,10 @@ import { cookies } from 'next/headers'
 import LoginResolver from "@/resolvers/LoginResolver";
 import PocketBase from 'pocketbase';
 import { revalidatePath } from 'next/cache'
+import DataBaseConnectionServer from "@/Components/DatabaseConnection/DataBaseConnectionServer";
 
-const pb = new PocketBase('http://127.0.0.1:8090');
+
+const pb = DataBaseConnectionServer()
 
 
 async function verify(values) {

@@ -19,7 +19,7 @@ const StepLabels = [
 ]
 
 const DoctorsStepper = () => {
-    const [ActiveStep, setActiveStep] = useState(2);
+    const [ActiveStep, setActiveStep] = useState(0);
 
     const incrementStep = () => {
         if (ActiveStep < StepLabels.length) {

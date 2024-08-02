@@ -2,11 +2,12 @@ import Grid from '@mui/material/Unstable_Grid2'; // Grid version 2
 import PatientCard from '@/Components/dashboard/Doctor/PatientCard';
 import { Box } from '@mui/material';
 import DoctorPay from '@/Components/dashboard/Doctor/DoctorPay';
-import PocketBase from 'pocketbase';
+import DoctorTable from '@/Components/dashboard/Doctor/DoctorTable';
+import DataBaseConnectionServer from '@/Components/DatabaseConnection/DataBaseConnectionServer';
 
 
 const page = async(requestData) => {
-    const pb = new PocketBase('http://127.0.0.1:8090');
+    const pb = DataBaseConnectionServer()
     let state = null
     let id = null
 
@@ -24,14 +25,14 @@ const page = async(requestData) => {
         <Box sx={{width: "100%"}}>
             
             <Grid container spacing={1} sx={{ justifyContent: "center"}}>
-                <Grid xs={12} sm={4}>
+                <Grid xs={11} sm={4}>
                     <PatientCard />
                 </Grid>
-                {/* <Grid xs={3}>
-                    <PatientCard />
-                </Grid> */}
-                <Grid xs={12} sm={7}>
+                <Grid xs={11} sm={7}>
                     <DoctorPay />
+                </Grid>
+                <Grid xs={11} sm={11}>
+                    <DoctorTable />
                 </Grid>
 
             </Grid>
