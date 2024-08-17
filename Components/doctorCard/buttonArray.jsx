@@ -14,40 +14,61 @@ import DislikeAction from '@/serverActions/DoctorStats/DislikeAction';
 import PleaseLogIn from './PleaseLogIn';
 import Comments from './Comments';
 import AskQuestion from './askQuestion';
-import DataBaseConnectionClient from '../DatabaseConnection/DataBaseConnection';
 
-const ButtonArray = ({ likes, dislikes, comments, ident, values }) => {
-    const pb = DataBaseConnectionClient()
+const ButtonArray = ({ likes, dislikes, comments, ident, values, isLogin }) => {
 
     const [likeState, setLikeState] = useState(likes)
     const [dislikeState, setdislikeState] = useState(dislikes)
     const [commentState, setcommentState] = useState(comments)
 
+    const [IsLikeTrue, setIsLikeTrue] = useState(values.Like)
+    const [IsDislikeTrue, setIsDislikeTrue] = useState(values.Dislike)
+
     const [LoginState, setLoginState] = useState(false)
-    
-    const [DisableClick, setDisableClick] = useState(true)
+    const [DisableClick, setDisableClick] = useState(false)
+    const [DisableDislikeClick, setDisableDislikeClick] = useState(false)
 
     useEffect(() => {
+        
         setLikeState(() => likes)
         setdislikeState(() => dislikes)
         setcommentState(() => comments)
-        if(pb.authStore.isValid === true){
+        if(isLogin === true){
             setLoginState(() => true)
-            setDisableClick(() => false)
             
         }
         else{
             setLoginState(() => false)
-            setDisableClick(() => false)
         }
+        if(values.Like){
+            setDisableDislikeClick(() => true)
+        }
+        if(values.Dislike){
+            setDisableClick(() => true) 
+        }
+        
+        
 
-    }, [likes, dislikes, comments])
+    }, [likes, dislikes, comments, isLogin])
+
+    // useEffect(() =>{
+    //     if(DisableClick === true){
+    //         setDisableDislikeClick(() => true)
+    //     }
+    //     if(DisableDislikeClick === true){
+    //         setDisableClick(() => true)
+    //     }
+    // },[DisableClick, DisableDislikeClick])
 
     const handleLove = async (_, val) => {
         await LikeSubmit(val, ident)
+        setIsLikeTrue((state) => !state)
+        setDisableDislikeClick((disState) => !disState)
     }
     const handleDislike = async (_, val) => {
         await DislikeAction(val, ident)
+        setIsDislikeTrue((state) => !state)
+        setDisableClick((likState) => !likState)
     }
 
     return (
@@ -55,7 +76,7 @@ const ButtonArray = ({ likes, dislikes, comments, ident, values }) => {
             <AskQuestion ident={ident}/>
             <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
                 {LoginState === true ? 
-                (<Checkbox icon={<FavoriteBorderIcon />} checkedIcon={<FavoriteIcon />} disabled={DisableClick} checked={values.Like} onChange={handleLove} />):
+                (<Checkbox icon={<FavoriteBorderIcon />} checkedIcon={<FavoriteIcon />} disabled={DisableClick} checked={IsLikeTrue} onChange={handleLove} />):
                 (<PleaseLogIn state="like" />)    
                 }
                 
@@ -65,8 +86,8 @@ const ButtonArray = ({ likes, dislikes, comments, ident, values }) => {
             </Box>
             <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
             {LoginState === true ? 
-                (<Checkbox icon={<ThumbDownOffAltIcon />} checkedIcon={<ThumbDownAltIcon />} checked={values.Dislike} disabled={DisableClick} onChange={handleDislike} />):
-                (<PleaseLogIn />)    
+                (<Checkbox icon={<ThumbDownOffAltIcon />} checkedIcon={<ThumbDownAltIcon />}  checked={IsDislikeTrue} disabled={DisableDislikeClick} onChange={handleDislike} />):
+                (<PleaseLogIn state="dislike"/>)    
                 }
 
                 <Typography variant='button'>{dislikeState}</Typography>

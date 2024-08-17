@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -20,11 +20,11 @@
     "@mui/x-charts": "^7.11.1",
     "@mui/x-data-grid": "^7.11.1",
     "@mui/x-date-pickers": "^7.11.1",
-    "babel-plugin-react-compiler": "^0.0.0-experimental-592953e-20240517",
     "date-fns": "^3.6.0",
     "dayjs": "^1.11.12",
     "eslint-plugin-react-compiler": "^0.0.0-experimental-c8b3f72-20240517",
     "lottie-react": "^2.4.0",
+    "mui-phone-number": "^3.0.3",
     "next": "^15.0.0-canary.89",
     "pocketbase": "^0.21.4",
     "react": "^19.0.0-rc-935180c7e0-20240524",
@@ -33,6 +33,7 @@
     "yup": "^1.4.0"
   },
   "devDependencies": {
+    "babel-plugin-react-compiler": "^0.0.0-experimental-52d6685-20240815",
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.5"
   }

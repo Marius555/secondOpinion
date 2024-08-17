@@ -37,8 +37,12 @@ const LogInAction = async (values) => {
     if (is_valid === true) {
         const check = await verify(values)
         if(check === true ){
-            revalidatePath('/')
-            redirect("/")
+            if(pb.authStore.model.MultipleLogin === false && pb.authStore.model.UserType === "Doctor"){
+                const data = {"MultipleLogin": true} 
+                await pb.collection('users').update(`${pb.authStore.model.id}`, data);
+                redirect("/user/doctor/profiler")
+            }
+            redirect("/doctors")
             
         }
         else{

@@ -14,13 +14,12 @@ import Slide from '@mui/material/Slide';
 import PopLogin from '../dashboard/PopupLogInAndSignIn/PopLogIn';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
-import CloseIcon from '@mui/icons-material/Close';
 
 const Transition = function Transition(props) {
     return <Slide direction="up" ref={props.ref} {...props} />;
 };
 
-export default function PleaseLogIn({state}) {
+export default function PleaseLogIn({ state }) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -33,18 +32,19 @@ export default function PleaseLogIn({state}) {
 
     return (
         <React.Fragment>
-            {state ==="like"?
-            (<Checkbox icon={<FavoriteBorderIcon />} checkedIcon={<FavoriteIcon />} checked={false} onClick={handleClickOpen} />):
-            (<Checkbox icon={<ThumbDownOffAltIcon />} checkedIcon={<ThumbDownAltIcon />} checked={false} onClick={handleClickOpen} />)
-            }
+            {state === "like" && (<Checkbox icon={<FavoriteBorderIcon />} checkedIcon={<FavoriteIcon />} checked={false} onClick={handleClickOpen} />)}
+            {state === "dislike" && (<Checkbox icon={<ThumbDownOffAltIcon />} checkedIcon={<ThumbDownAltIcon />} checked={false} onClick={handleClickOpen} />)}
+            {state === "consult" && <Button variant="contained" size='small' onClick={handleClickOpen}>
+                Consultation
+            </Button>}
             <Dialog
                 open={open}
                 onClose={handleClose}
                 TransitionComponent={Transition}
 
             >
-                <Box sx={{margin: "10px"}}>
-                    <PopLogin setOpen={setOpen}/>
+                <Box sx={{ margin: "10px" }}>
+                    <PopLogin setOpen={setOpen} />
                 </Box>
             </Dialog>
         </React.Fragment>

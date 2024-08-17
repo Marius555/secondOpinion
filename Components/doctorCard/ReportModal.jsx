@@ -21,18 +21,21 @@ const Transition = function Transition(props) {
     return <Slide direction="up" ref={props.ref} {...props} />;
 };
 
-export default function ReportModal({ report, setreport, ident }) {
+export default function ReportModal({ report, setreport, ident, isLogin }) {
     const pb = DataBaseConnectionClient()
     const [disableButton, setDisableButton] = React.useState(false)
-    const [IsLogIn, setIsLogIn] = React.useState(false)
+    const [IsLogIn, setIsLogIn] = React.useState(isLogin)
     const [LoginModalState, setLoginModalState] = React.useState(false)
     
 
     useEffect(() => {
-        if (pb.authStore.isValid) {
+        if (isLogin) {
             setIsLogIn(true)
         }
-    })
+        if (!isLogin) {
+            setIsLogIn(false)
+        }
+    },[isLogin])
 
     const defaultValues = {
         userId: ident.id,
@@ -71,7 +74,7 @@ export default function ReportModal({ report, setreport, ident }) {
                 onClose={handleClose}
                 aria-describedby="alert-dialog-slide-description"
             >
-                {PleaseLogIn === true ?
+                {IsLogIn === true ?
                     (<>
                         <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", }}>
                             <DialogTitle>{`Report ${ident.Name} ${ident.LastName}`}</DialogTitle>

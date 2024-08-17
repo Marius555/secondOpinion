@@ -11,10 +11,15 @@ import DataBaseConnectionServer from '@/Components/DatabaseConnection/DataBaseCo
 
 const page = async () => {
   const pb = DataBaseConnectionServer()
+  let isLogin = false
   const pb_cookie = cookies().get("pb_auth")
   if (pb_cookie) {
     pb.authStore.loadFromCookie(`${pb_cookie.name}=${pb_cookie.value}`)
+    isLogin = true
   }
+
+
+
 
   const records = await pb.collection('DoctorDetails').getFullList({
     sort: '-created',
@@ -24,15 +29,22 @@ const page = async () => {
     sort: '-created',
   });
   const rec = []
+  const finallArray = []
 
   if (pb_cookie && pb.authStore.isValid === true) {
     records.map((item) => {
+      let flag = false
       userInteractions.map((value) => {
         if (item.id === value.UserId && pb.authStore.model.id === value.User) {
           const newData = { ...item, value }
           rec.push(newData)
+          flag = true
         }
+
       })
+      if (!flag) {
+        rec.push(item)
+      }
     })
   }
   else {
@@ -42,14 +54,62 @@ const page = async () => {
   }
 
 
+  const Proffesion = async (recArray) => {
+    const usr = await pb.collection('users').getFullList({
+      sort: '-created',
+  });
+    const education = await pb.collection('DoctorEducation').getFullList({
+      sort: '-created',
+    });
+  
+
+    for (const value of recArray) {
+      let user_id = null
+      let educationCheck = null
+
+
+      for (const userVal of usr) {
+        if (value.UserId === userVal.id) {
+          user_id = userVal.id
+          break;
+        }
+      }
+
+     
+        for (const EduVal of education) {
+          if (user_id && user_id === EduVal.UserId) {
+            educationCheck = EduVal
+            break;
+
+          }
+        }
+      
+
+      let data = { ...value, educationCheck }
+      finallArray.push(data)
+
+    }
+  }
+
+
+
+
+  try {
+    await Proffesion(rec)
+  } catch (error) {
+    console.log(error)
+  }
+
+
+
   const defaultData = { Comment: false, Dislike: false, Like: false }
 
 
 
 
   return (
-    <Grid2 container spacing={1} sx={{placeContent: "start", alignContent: "cetner", padding: "10px"}}>
-      {rec?.map((item, index) => {
+    <Grid2 container spacing={1} sx={{ placeContent: "start", alignContent: "cetner", padding: "10px" }}>
+      {finallArray?.map((item, index) => {
         return (
           <Grid2 >
             <Paper key={index} sx={{ display: "flex", flexDirection: "row", padding: "5px", gap: "10px", width: "30rem", height: "10rem", position: "relative" }}>
@@ -60,11 +120,11 @@ const page = async () => {
               <Box>
                 <Box sx={{ display: "flex", flexDirection: "column" }}>
                   <Typography >{item.Name} {item.LastName}</Typography>
-                  <Typography sx={{ color: "grey" }} variant='caption'>Kineziterapeutas</Typography>
-                  <ButtonArray likes={item.Likes} dislikes={item.Dislikes} comments={item.Comments} ident={item.id} values={item.value ? item.value : defaultData} />
+                  <Typography sx={{ color: "grey" }} variant='caption'>{item?.educationCheck?.Specialization}</Typography>
+                  <ButtonArray likes={item.Likes} dislikes={item.Dislikes} comments={item.Comments} ident={item.id} values={item.value ? item.value : defaultData} isLogin={isLogin} />
                 </Box>
                 <Box sx={{ position: "absolute", top: "0px", right: "5px" }}>
-                  <ThreeDots ident={item} />
+                  <ThreeDots ident={item} isLogin={isLogin}/>
                 </Box>
               </Box>
             </Paper>

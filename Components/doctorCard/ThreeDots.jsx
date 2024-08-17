@@ -8,7 +8,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ReportModal from './ReportModal';
 import ReportGmailerrorredIcon from '@mui/icons-material/ReportGmailerrorred';
 
-export default function ThreeDots({ ident }) {
+export default function ThreeDots({ ident, isLogin }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [report, setreport] = React.useState(false);
   const open = Boolean(anchorEl);
@@ -48,7 +48,7 @@ export default function ThreeDots({ ident }) {
           Report
         </MenuItem>
       </Menu>
-      <ReportModal ident={ident} setreport={setreport} report={report}  />
+      <ReportModal ident={ident} setreport={setreport} report={report} isLogin={isLogin}/>
 
     </div>
   );

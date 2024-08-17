@@ -45,7 +45,6 @@ export default function Login() {
             const msg = JSON.parse(response?.error)
             const msgData = msg.response.message
             setErr(msgData)
-            
         }
     
         

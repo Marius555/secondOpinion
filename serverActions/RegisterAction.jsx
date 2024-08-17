@@ -21,7 +21,7 @@ async function verify(values){
         await pb.collection('users').create(data);
         return true
     } catch (error) {
-        return JSON.stringify(error)
+        return false
     }
 }
 

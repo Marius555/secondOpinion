@@ -1,4 +1,3 @@
-
 import React from 'react'
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -27,6 +26,7 @@ import dayjs from 'dayjs';
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import PocketBase from 'pocketbase';
 import DataBaseConnectionServer from '@/Components/DatabaseConnection/DataBaseConnectionServer';
+import MuiPhoneNumber from "mui-phone-number";
 
 
 
@@ -44,7 +44,7 @@ const StepOneForm = ({ ActiveStep, setActiveStep, data, setData }) => {
         reset,
 
         formState: { errors },
-    } = useForm({ resolver: yupResolver(DoctorStepOneResolver)})
+    } = useForm({ resolver: yupResolver(DoctorStepOneResolver) })
 
     const VisuallyHiddenInput = styled('input')({
         clip: 'rect(0 0 0 0)',
@@ -106,6 +106,7 @@ const StepOneForm = ({ ActiveStep, setActiveStep, data, setData }) => {
                         />
                     </Grid>
                     <Grid xs={12}>
+                       
                         <TextField
                             size='small'
                             required
@@ -117,6 +118,28 @@ const StepOneForm = ({ ActiveStep, setActiveStep, data, setData }) => {
                             defaultValue={data?.PhoneNumber || ""}
                             error={Boolean(errors.PhoneNumber)} helperText={errors.PhoneNumber?.message}
                         />
+
+                        {/* <Controller
+                            control={control}
+                            name='PhoneNumber'
+                            render={({ field: { onChange, onBlur, value } }) => (
+                                <>
+                                     <MuiPhoneNumber 
+                                     onChange={onChange} 
+                                     value={value} 
+                                     fullWidth 
+                                     onBlur={onBlur}
+                                     label="Telefono Numberis" 
+                                     required
+                                     autoComplete="Phone Number"
+                                     defaultCountry='lt'
+                                     defaultValue={data?.PhoneNumber}
+                                     error={Boolean(errors.PhoneNumber)} helperText={errors.PhoneNumber?.message}
+                                     />
+                                </>
+                            )}
+
+                        /> */}
                     </Grid>
 
                     <Grid xs={12}>
@@ -167,7 +190,7 @@ const StepOneForm = ({ ActiveStep, setActiveStep, data, setData }) => {
                                         slotProps={{ textField: { size: 'small', error: Boolean(errors.DateOfBirth) } }}
                                         openTo="year"
                                         views={['year', 'month', 'day']}
-                                        defaultValue={data&& dayjs(data.BirthDay)}
+                                        defaultValue={data && dayjs(data.BirthDay)}
 
 
 
@@ -192,8 +215,8 @@ const StepOneForm = ({ ActiveStep, setActiveStep, data, setData }) => {
                                             onChange={
                                                 (event) => { onChange(event.target.files[0]) }
                                             }
-                                            
-                                            />
+
+                                        />
                                     </Button>
                                 )
                             }
@@ -208,13 +231,13 @@ const StepOneForm = ({ ActiveStep, setActiveStep, data, setData }) => {
                             control={control}
                             name='Gender'
                             required
-                            defaultValue={data?.Gender ||""}
+                            defaultValue={data?.Gender || ""}
                             render={({ field: { onChange, onBlur } }) => (
                                 <FormControl>
                                     <FormLabel id="demo-radio-buttons-group-label">Lytis</FormLabel>
                                     <RadioGroup
                                         onChange={onChange}
-                                        defaultValue={data?.Gender||""}
+                                        defaultValue={data?.Gender || ""}
                                         onBlur={onBlur}
                                         aria-labelledby="demo-radio-buttons-group-label"
                                         row

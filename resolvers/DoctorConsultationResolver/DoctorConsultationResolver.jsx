@@ -1,10 +1,15 @@
 import * as yup from "yup"
 
 const imageSchema = yup.mixed()
+
+.test('file-required', 'Files must be attached', (value) => {
+  return value && value.length > 0;
+})
+
   .test('file-size', 'File size is too large', (value) => {
     if (value && value.length > 0) {
       for (let i = 0; i < value.length; i++) {
-        if (value[i].size > 5242880) { // 5MB
+        if (value[i]?.size > 5242880) { // 5MB
           return false;
         }
       }
@@ -14,13 +19,13 @@ const imageSchema = yup.mixed()
   .test('file-type', 'Unsupported file format', (value) => {
     if (value && value.length > 0) {
       for (let i = 0; i < value.length; i++) {
-        if (!['image/png', 'image/jpeg', 'image/jpg'].includes(value[i].type)) {
+        if (!['image/png','image/jpg', 'image/jpeg'].includes( value[i]?.type)) {
           return false;
         }
       }
     }
     return true;
-  });
+  })
 
 const DoctorConsultationResolver = yup
   .object({
